@@ -28,10 +28,17 @@ export default function HomePage() {
     fetchData();
   }, []);
 
-  const logOut = () => {
+  const logOut = async () => {
+
     localStorage.removeItem('config');
     localStorage.removeItem('name');
     navigate('/');
+
+    try {
+      await axios.delete(`${import.meta.env.VITE_API_URL}/log-out`, config);      
+    } catch ({response: {status, statusText, data}}){
+      console.log(`${status} ${statusText}\n${data}`);
+    }
   }
 
   const calcTotal = () => {
