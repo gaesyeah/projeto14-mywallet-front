@@ -1,37 +1,59 @@
+import axios from "axios"
+import { useContext, useEffect, useState } from "react"
 import { AiOutlineMinusCircle, AiOutlinePlusCircle } from "react-icons/ai"
 import { BiExit } from "react-icons/bi"
+import { useNavigate } from "react-router-dom"
 import styled from "styled-components"
+import Transactions from "../components/transactions/Transactions"
+import { UserContext } from "../context"
 
 export default function HomePage() {
+
+  const { config, name } = useContext(UserContext);
+  const navigate = useNavigate();
+
+  const [transactions, setTransactions] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try{
+        const { data } = await axios.get(`${import.meta.env.VITE_API_URL}/transactions`, config);
+        setTransactions(data);
+      } catch ({response: {status, statusText, data}}){
+        console.log(`${status} ${statusText}\n${data}`);
+        navigate('/');
+      }
+    }
+
+    fetchData();
+  }, []);
+
+  const calcTotal = () => {
+    let total = 0;
+    transactions.forEach(({ value, type }) => {
+      if (type === 'exit') value = value * -1; 
+      total = total + value;
+    })
+    return total;
+  }
+
   return (
     <HomeContainer>
       <Header>
-        <h1>Olá, Fulano</h1>
+        <h1>Olá, {name}</h1>
         <BiExit />
       </Header>
 
       <TransactionsContainer>
         <ul>
-          <ListItemContainer>
-            <div>
-              <span>30/11</span>
-              <strong>Almoço mãe</strong>
-            </div>
-            <Value color={"negativo"}>120,00</Value>
-          </ListItemContainer>
-
-          <ListItemContainer>
-            <div>
-              <span>15/11</span>
-              <strong>Salário</strong>
-            </div>
-            <Value color={"positivo"}>3000,00</Value>
-          </ListItemContainer>
+          {transactions.map(transaction => <Transactions key={transaction._id} transaction={ transaction }/>)}
         </ul>
 
         <article>
           <strong>Saldo</strong>
-          <Value color={"positivo"}>2880,00</Value>
+          <Value calcTotal={calcTotal()} >
+            {calcTotal().toFixed(2).replace('.', ',')}
+          </Value>
         </article>
       </TransactionsContainer>
 
@@ -66,6 +88,9 @@ const Header = styled.header`
   color: white;
 `
 const TransactionsContainer = styled.article`
+  ul{
+    overflow-y: auto;
+  }
   flex-grow: 1;
   background-color: #fff;
   color: #000;
@@ -74,6 +99,7 @@ const TransactionsContainer = styled.article`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  height: 446px;
   article {
     display: flex;
     justify-content: space-between;   
@@ -102,12 +128,20 @@ const ButtonsContainer = styled.section`
     }
   }
 `
-const Value = styled.div`
+export const Value = styled.div`
   font-size: 16px;
   text-align: right;
-  color: ${(props) => (props.color === "positivo" ? "green" : "red")};
+  color: ${({type, calcTotal}) => {
+    if (calcTotal){
+      if (calcTotal > 0) return 'green';
+      return 'red';
+    }
+    
+    if (type === 'entry') return 'green';
+    return 'red';
+  }};
 `
-const ListItemContainer = styled.li`
+export const ListItemContainer = styled.li`
   display: flex;
   justify-content: space-between;
   align-items: center;
