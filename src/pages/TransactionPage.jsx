@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import { UserContext } from "../context";
@@ -24,9 +24,13 @@ export default function TransactionsPage() {
       await axios.post(`${import.meta.env.VITE_API_URL}/transactions/${tipo}`, transactionInputs, config);
       navigate('/home');
     } catch ({response: {status, statusText, data}}){
-      console.log(`${status} ${statusText}\n${data}`);
+      alert(`${status} ${statusText}\n${data}`);
     }
   };
+
+  useEffect(() => {
+    if(config.headers.Authorization.replace('Bearer ', '') === 'undefined') navigate('/');
+  }, []);
 
   return (
     <TransactionsContainer>

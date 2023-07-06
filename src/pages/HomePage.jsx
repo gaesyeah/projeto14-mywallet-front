@@ -28,6 +28,12 @@ export default function HomePage() {
     fetchData();
   }, []);
 
+  const logOut = () => {
+    localStorage.removeItem('config');
+    localStorage.removeItem('name');
+    navigate('/');
+  }
+
   const calcTotal = () => {
     let total = 0;
     transactions.forEach(({ value, type }) => {
@@ -41,7 +47,7 @@ export default function HomePage() {
     <HomeContainer>
       <Header>
         <h1>Olá, {name}</h1>
-        <BiExit />
+        <Exit onClick={logOut}/>
       </Header>
 
       <TransactionsContainer>
@@ -73,6 +79,9 @@ export default function HomePage() {
   )
 }
 
+const Exit = styled(BiExit)`
+  cursor: pointer;
+`
 const HomeContainer = styled.div`
   display: flex;
   flex-direction: column;
