@@ -23,7 +23,7 @@ export default function SignUpPage() {
       navigate('/');
       
     } catch ({response: {status, statusText, data}}){
-      alert(`${status} ${statusText}\n${data.map(data => '\n' + data)}`);
+      alert(`${status} ${statusText}\n${data}`);
     }
   }
 
@@ -34,14 +34,14 @@ export default function SignUpPage() {
         <input 
           placeholder="Nome"
           required 
-          onChange={(e) => setSignUpInputs(previous => ({...previous, ['name']: e.target.value}))}
+          onChange={e => setSignUpInputs(previous => ({...previous, ['name']: e.target.value}))}
           value={signUpInputs.name}
         />
         <input 
           placeholder="E-mail"
           type="email"
           required
-          onChange={(e) => setSignUpInputs(previous => ({...previous, ['email']: e.target.value}))}
+          onChange={e => setSignUpInputs(previous => ({...previous, ['email']: e.target.value}))}
           value={signUpInputs.email}
         />
         <input 
@@ -50,7 +50,7 @@ export default function SignUpPage() {
           type="password"
           required
           minLength="3"
-          onChange={(e) => setSignUpInputs(previous => ({...previous, ['password']: e.target.value}))}
+          onChange={e => setSignUpInputs(previous => ({...previous, ['password']: e.target.value}))}
           value={signUpInputs.password}
         />
         <input 
@@ -59,7 +59,7 @@ export default function SignUpPage() {
           type="password"
           required
           minLength="3"
-          onChange={(e) => setConfirmPassword(e.target.value)}
+          onChange={e => setConfirmPassword(e.target.value)}
           value={confirmPassword}
         />
         <button type="submit" >Cadastrar</button>
