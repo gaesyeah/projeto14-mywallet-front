@@ -23,19 +23,19 @@ export default function HomePage() {
         console.log(`${status} ${statusText}\n${data}`);
         navigate('/');
       }
-    }
+    };
 
     fetchData();
   }, []);
 
   const logOut = async () => {
-
-    localStorage.removeItem('config');
-    localStorage.removeItem('name');
-    navigate('/');
-
     try {
-      await axios.delete(`${import.meta.env.VITE_API_URL}/log-out`, config);      
+      await axios.delete(`${import.meta.env.VITE_API_URL}/log-out`, config);
+      
+      localStorage.removeItem('config');
+      localStorage.removeItem('name');
+      window.location.reload();
+      
     } catch ({response: {status, statusText, data}}){
       console.log(`${status} ${statusText}\n${data}`);
     }
@@ -111,8 +111,8 @@ const TransactionsContainer = styled.article`
   background-color: #fff;
   color: #000;
   border-radius: 5px;
-  padding: 16px;
   display: flex;
+  padding: 16px;
   flex-direction: column;
   justify-content: space-between;
   height: 446px;
@@ -167,5 +167,18 @@ export const ListItemContainer = styled.li`
   div span {
     color: #c6c6c6;
     margin-right: 10px;
+  }
+  div {
+    margin-right: -9px;
+    display: flex;
+    p{
+      cursor: pointer;
+      color: #C6C6C6;
+      margin-left: 20px;
+      transition: 400ms;
+      :hover{
+        color: red;
+      }
+    }
   }
 `

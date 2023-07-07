@@ -11,7 +11,7 @@ export default function App() {
 
   const navigate = useNavigate();
 
-  const [loginData, setLoginData] = useState([]);
+  const [loginData, setLoginData] = useState({});
   const { token, name } = loginData;
   const config = {
     headers: {
