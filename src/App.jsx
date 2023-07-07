@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react"
 import { Route, Routes, useNavigate } from "react-router-dom"
 import styled from "styled-components"
 import { UserContext } from "./context"
+import EditPage from "./pages/EditPage"
 import HomePage from "./pages/HomePage"
 import SignInPage from "./pages/SignInPage"
 import SignUpPage from "./pages/SignUpPage"
@@ -47,6 +48,7 @@ const storedName = useRef(localStorage.getItem('name'));
           <Route path="/cadastro" element={<SignUpPage />} />
           <Route path="/home" element={<HomePage />} />
           <Route path="/nova-transacao/:tipo" element={<TransactionsPage />} />
+          <Route path="/editar-registro/:tipo" element={<EditPage />} />
         </Routes>
       </PagesContainer>
     </UserContext.Provider>

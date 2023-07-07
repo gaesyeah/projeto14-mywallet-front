@@ -58,7 +58,7 @@ export default function TransactionsPage() {
   )
 }
 
-const TransactionsContainer = styled.main`
+export const TransactionsContainer = styled.main`
   height: calc(100vh - 50px);
   display: flex;
   flex-direction: column;

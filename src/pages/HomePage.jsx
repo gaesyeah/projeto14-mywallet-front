@@ -164,6 +164,13 @@ export const ListItemContainer = styled.li`
   margin-bottom: 8px;
   color: #000000;
   margin-right: 10px;
+  strong {
+    cursor: pointer;
+    :hover {
+      color: ${({ type }) => type === 'entry' ? 'green' : 'red'};
+      transition: 400ms;
+    }
+  }
   div span {
     color: #c6c6c6;
     margin-right: 10px;

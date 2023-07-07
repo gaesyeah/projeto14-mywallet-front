@@ -1,11 +1,14 @@
 import axios from "axios";
 import dayjs from "dayjs";
 import { useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import { UserContext } from "../../context";
 import { ListItemContainer, Value } from "../../pages/HomePage";
 
 const Transactions = ({ transaction , setTransactions}) => {
   const {_id, description, value, type, timeStamp} = transaction;
+
+  const navigate = useNavigate();
 
   const { config } = useContext(UserContext);
 
@@ -24,10 +27,10 @@ const Transactions = ({ transaction , setTransactions}) => {
   };
 
   return (
-    <ListItemContainer>
+    <ListItemContainer type={type}>
       <div>
         <span>{dayjs(timeStamp).format('DD/MM')}</span>
-        <strong>{description}</strong>
+        <strong onClick={() => navigate(`/editar-registro/${type}`, { state: { _id, description, value } })}>{description}</strong>
       </div>
       <div>
         <Value type={type}>{value.toFixed(2).replace('.', ',')}</Value>
