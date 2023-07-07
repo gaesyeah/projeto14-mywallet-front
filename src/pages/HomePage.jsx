@@ -59,7 +59,7 @@ export default function HomePage() {
 
       <TransactionsContainer>
         <ul>
-          {transactions.map(transaction => <Transactions key={transaction._id} transaction={ transaction }/>)}
+          {transactions.map(transaction => <Transactions key={transaction._id} transaction={ transaction } setTransactions={setTransactions}/>)}
         </ul>
 
         <article>
