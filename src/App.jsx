@@ -48,7 +48,7 @@ const storedName = useRef(localStorage.getItem('name'));
           <Route path="/cadastro" element={<SignUpPage />} />
           <Route path="/home" element={<HomePage />} />
           <Route path="/nova-transacao/:tipo" element={<TransactionsPage />} />
-          <Route path="/editar-registro/:tipo" element={<EditPage />} />
+          <Route path="/editar-registro/:tipo/:id" element={<EditPage />} />
         </Routes>
       </PagesContainer>
     </UserContext.Provider>

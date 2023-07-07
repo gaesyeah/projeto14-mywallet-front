@@ -30,7 +30,7 @@ const Transactions = ({ transaction , setTransactions}) => {
     <ListItemContainer type={type}>
       <div>
         <span>{dayjs(timeStamp).format('DD/MM')}</span>
-        <strong onClick={() => navigate(`/editar-registro/${type}`, { state: { _id, description, value } })}>{description}</strong>
+        <strong onClick={() => navigate(`/editar-registro/${type}/${_id}`, { state: { description, value } })}>{description}</strong>
       </div>
       <div>
         <Value type={type}>{value.toFixed(2).replace('.', ',')}</Value>

@@ -6,10 +6,10 @@ import { TransactionsContainer } from "./TransactionPage";
 
 export default function EditPage() {
 
-  const { tipo } = useParams();
+  const { tipo, id } = useParams();
   const { config } = useContext(UserContext);
 
-  const { _id, description, value } = useLocation().state;
+  const { description, value } = useLocation().state;
 
   const navigate = useNavigate();
 
@@ -21,7 +21,7 @@ export default function EditPage() {
     if (Number.isInteger(editInputs.value)) return alert('"value" must be a float');
 
     try {
-      await axios.put(`${import.meta.env.VITE_API_URL}/transactions/${_id}`, editInputs, config);
+      await axios.put(`${import.meta.env.VITE_API_URL}/transactions/${id}`, editInputs, config);
       navigate('/home');
     } catch ({response: {status, statusText, data}}){
       alert(`${status} ${statusText}\n${data}`);
