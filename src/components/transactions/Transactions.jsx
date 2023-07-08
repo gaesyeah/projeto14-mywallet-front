@@ -31,7 +31,7 @@ const Transactions = ({ transaction , setTransactions}) => {
       <div>
         <span>{dayjs(timeStamp).format('DD/MM')}</span>
         <strong data-test="registry-name" 
-          onClick={() => navigate(`/editar-registro/${type}/${_id}`, { state: { description, value } })}
+          onClick={() => navigate(`/editar-registro/${type === 'entry' ? 'entrada' : 'saida'}/${_id}`, { state: { type, description, value } })}
         >{description}</strong>
       </div>
       <div>

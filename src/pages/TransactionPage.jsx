@@ -21,7 +21,7 @@ export default function TransactionsPage() {
     if (Number.isInteger(transactionInputs.value)) return alert('"value" must be a float');
 
     try {
-      await axios.post(`${import.meta.env.VITE_API_URL}/transactions/${tipo}`, transactionInputs, config);
+      await axios.post(`${import.meta.env.VITE_API_URL}/transactions/${tipo === 'entrada' ? 'entry' : 'exit'}`, transactionInputs, config);
       navigate('/home');
     } catch ({response: {status, statusText, data}}){
       alert(`${status} ${statusText}\n${data}`);
@@ -34,7 +34,7 @@ export default function TransactionsPage() {
 
   return (
     <TransactionsContainer>
-      <h1>Nova {tipo === 'entry' ? 'entrada': 'saída'}</h1>
+      <h1>Nova {tipo}</h1>
       <form onSubmit={createTransaction}> 
         <input
           data-test="registry-amount-input" 
@@ -55,7 +55,7 @@ export default function TransactionsPage() {
           value={transactionInputs.description}
         />
         <button data-test="registry-save" >
-          Salvar {tipo === 'entry' ? 'entrada': 'saída'}
+          Salvar {tipo}
         </button>
       </form>
     </TransactionsContainer>

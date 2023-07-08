@@ -6,10 +6,10 @@ import { TransactionsContainer } from "./TransactionPage";
 
 export default function EditPage() {
 
-  const { tipo, id } = useParams();
+  const { id } = useParams();
   const { config } = useContext(UserContext);
 
-  const { description, value } = useLocation().state;
+  const { type, description, value } = useLocation().state;
 
   const navigate = useNavigate();
 
@@ -34,7 +34,7 @@ export default function EditPage() {
 
   return (
     <TransactionsContainer>
-      <h1>Editar {tipo === 'entry' ? 'entrada': 'saída'}</h1>
+      <h1>Editar {type === 'entry' ? 'entrada': 'saída'}</h1>
       <form onSubmit={editRegister}> 
         <input
           data-test="registry-amount-input" 
@@ -55,7 +55,7 @@ export default function EditPage() {
           value={editInputs.description}
         />
         <button data-test="registry-save" >
-          Atualizar {tipo === 'entry' ? 'entrada': 'saída'}
+          Atualizar {type === 'entry' ? 'entrada': 'saída'}
         </button>
       </form>
     </TransactionsContainer>
