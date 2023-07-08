@@ -12,10 +12,12 @@ export default function SignUpPage() {
     name: '', email: '', password: ''
   });
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [loading, setLoading] = useState(false);
 
   const signUp = async (e) => {
     e.preventDefault();
 
+    setLoading(true);
     if (signUpInputs.password !== confirmPassword) return alert('The passwords must be the same');
 
     try{
@@ -23,6 +25,7 @@ export default function SignUpPage() {
       navigate('/');
       
     } catch ({response: {status, statusText, data}}){
+      setLoading(false);
       alert(`${status} ${statusText}\n${data}`);
     }
   }
@@ -32,6 +35,7 @@ export default function SignUpPage() {
       <form onSubmit={signUp}>
         <MyWalletLogo />
         <input
+          disabled={loading}
           data-test="name" 
           placeholder="Nome"
           required 
@@ -39,6 +43,7 @@ export default function SignUpPage() {
           value={signUpInputs.name}
         />
         <input
+          disabled={loading}
           data-test="email" 
           placeholder="E-mail"
           type="email"
@@ -47,6 +52,7 @@ export default function SignUpPage() {
           value={signUpInputs.email}
         />
         <input
+          disabled={loading}
           data-test="password" 
           placeholder="Senha" 
           autoComplete="new-password"
@@ -57,6 +63,7 @@ export default function SignUpPage() {
           value={signUpInputs.password}
         />
         <input
+          disabled={loading}
           data-test="conf-password" 
           placeholder="Confirme a senha" 
           autoComplete="new-password"
@@ -66,11 +73,13 @@ export default function SignUpPage() {
           onChange={e => setConfirmPassword(e.target.value)}
           value={confirmPassword}
         />
-        <button data-test="sign-up-submit">Cadastrar</button>
+        <button data-test="sign-up-submit" 
+          disabled={loading}
+        >{loading ? 'Carregando...' : 'Cadastrar'}</button>
       </form>
 
       <Link to='/' >
-        Já tem uma conta? Entre agora!
+        <a>Já tem uma conta? Entre agora!</a>
       </Link>
     </SingUpContainer>
   )

@@ -14,15 +14,19 @@ export default function SignInPage() {
   const [signInInputs, setSignInputs] = useState({
     email: '', password: ''
   });
+  const [loading, setLoading] = useState(false);
 
   const signIn = async (e) => {
       e.preventDefault();
+
+      setLoading(true);
 
       try {
         const { data } = await axios.post(`${import.meta.env.VITE_API_URL}/sign-in`, signInInputs);
         setLoginData(data);
         navigate('/home');
       } catch ({response: {status, statusText, data}}){
+        setLoading(false);
         alert(`${status} ${statusText}\n${data}`);
       }
   }
@@ -32,6 +36,7 @@ export default function SignInPage() {
       <form onSubmit={signIn}>
         <MyWalletLogo />
         <input
+          disabled={loading}
           data-test="email" 
           placeholder="E-mail" 
           type="email"
@@ -40,6 +45,7 @@ export default function SignInPage() {
           value={signInInputs.email}
         />
         <input
+          disabled={loading}
           data-test="password" 
           placeholder="Senha" 
           type="password"
@@ -48,11 +54,13 @@ export default function SignInPage() {
           onChange={e => setSignInputs(previous => ({...previous, ['password']: e.target.value}))}
           value={signInInputs.password}
         />
-        <button data-test="sign-in-submit">Entrar</button>
+        <button data-test="sign-in-submit" 
+          disabled={loading}
+        >{loading ? 'Carregando...' : 'Entrar'}</button>
       </form>
 
       <Link to='/cadastro' >
-        Primeira vez? Cadastre-se!
+        <a>Primeira vez? Cadastre-se!</a>
       </Link>
     </SingInContainer>
   )
