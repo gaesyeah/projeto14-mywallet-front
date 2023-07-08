@@ -36,7 +36,8 @@ export default function TransactionsPage() {
     <TransactionsContainer>
       <h1>Nova {tipo === 'entry' ? 'entrada': 'saída'}</h1>
       <form onSubmit={createTransaction}> 
-        <input 
+        <input
+          data-test="registry-amount-input" 
           placeholder="Valor" 
           type="number" 
           step="0.01" 
@@ -45,14 +46,17 @@ export default function TransactionsPage() {
           onChange={e => setTransactionInputs(previous => ({...previous, ['value']: Number(e.target.value)}))}
           value={transactionInputs.value}
         />
-        <input 
+        <input
+          data-test="registry-name-input"
           placeholder="Descrição" 
           type="text" 
           required
           onChange={e => setTransactionInputs(previous => ({...previous, ['description']: e.target.value}))}
           value={transactionInputs.description}
         />
-        <button>Salvar {tipo === 'entry' ? 'entrada': 'saída'}</button>
+        <button data-test="registry-save" >
+          Salvar {tipo === 'entry' ? 'entrada': 'saída'}
+        </button>
       </form>
     </TransactionsContainer>
   )

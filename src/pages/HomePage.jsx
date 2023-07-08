@@ -53,8 +53,8 @@ export default function HomePage() {
   return (
     <HomeContainer>
       <Header>
-        <h1>Olá, {name}</h1>
-        <Exit onClick={logOut}/>
+        <h1 data-test="user-name">Olá, {name}</h1>
+        <Exit data-test="logout" onClick={logOut}/>
       </Header>
 
       <TransactionsContainer>
@@ -64,19 +64,24 @@ export default function HomePage() {
 
         <article>
           <strong>Saldo</strong>
-          <Value calcTotal={calcTotal()} >
-            {calcTotal().toFixed(2).replace('.', ',')}
+          <Value data-test="total-amount"
+            calcTotal={calcTotal()} 
+          >{calcTotal().toFixed(2).replace('.', ',')}
           </Value>
         </article>
       </TransactionsContainer>
 
 
       <ButtonsContainer>
-        <button onClick={() => navigate('/nova-transacao/entry')}>
+        <button data-test="new-income"
+          onClick={() => navigate('/nova-transacao/entry')}
+        >
           <AiOutlinePlusCircle />
           <p>Nova <br /> entrada</p>
         </button>
-        <button onClick={() => navigate('/nova-transacao/exit')}>
+        <button data-test="new-expense" 
+          onClick={() => navigate('/nova-transacao/exit')}
+        >
           <AiOutlineMinusCircle />
           <p>Nova <br />saída</p>
         </button>

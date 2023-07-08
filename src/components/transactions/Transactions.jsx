@@ -30,11 +30,17 @@ const Transactions = ({ transaction , setTransactions}) => {
     <ListItemContainer type={type}>
       <div>
         <span>{dayjs(timeStamp).format('DD/MM')}</span>
-        <strong onClick={() => navigate(`/editar-registro/${type}/${_id}`, { state: { description, value } })}>{description}</strong>
+        <strong data-test="registry-name" 
+          onClick={() => navigate(`/editar-registro/${type}/${_id}`, { state: { description, value } })}
+        >{description}</strong>
       </div>
       <div>
-        <Value type={type}>{value.toFixed(2).replace('.', ',')}</Value>
-        <p onClick={deleteTransaction}>x</p>
+        <Value data-test="registry-amount" 
+          type={type}>{value.toFixed(2).replace('.', ',')}
+        </Value>
+        <p data-test="registry-delete" 
+          onClick={deleteTransaction}
+        >x</p>
       </div>
     </ListItemContainer>
   );

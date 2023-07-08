@@ -36,7 +36,8 @@ export default function EditPage() {
     <TransactionsContainer>
       <h1>Editar {tipo === 'entry' ? 'entrada': 'saída'}</h1>
       <form onSubmit={editRegister}> 
-        <input 
+        <input
+          data-test="registry-amount-input" 
           placeholder="Valor" 
           type="number" 
           step="0.01" 
@@ -45,14 +46,17 @@ export default function EditPage() {
           onChange={e => setEditInputs(previous => ({...previous, ['value']: Number(e.target.value)}))}
           value={editInputs.value}
         />
-        <input 
+        <input
+          data-test="registry-name-input" 
           placeholder="Descrição" 
           type="text" 
           required
           onChange={e => setEditInputs(previous => ({...previous, ['description']: e.target.value}))}
           value={editInputs.description}
         />
-        <button>Atualizar {tipo === 'entry' ? 'entrada': 'saída'}</button>
+        <button data-test="registry-save" >
+          Atualizar {tipo === 'entry' ? 'entrada': 'saída'}
+        </button>
       </form>
     </TransactionsContainer>
   )

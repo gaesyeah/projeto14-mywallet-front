@@ -31,14 +31,16 @@ export default function SignInPage() {
     <SingInContainer>
       <form onSubmit={signIn}>
         <MyWalletLogo />
-        <input 
+        <input
+          data-test="email" 
           placeholder="E-mail" 
           type="email"
           required
           onChange={e => setSignInputs(previous => ({...previous, ['email']: e.target.value}))}
           value={signInInputs.email}
         />
-        <input 
+        <input
+          data-test="password" 
           placeholder="Senha" 
           type="password"
           required
@@ -46,7 +48,7 @@ export default function SignInPage() {
           onChange={e => setSignInputs(previous => ({...previous, ['password']: e.target.value}))}
           value={signInInputs.password}
         />
-        <button>Entrar</button>
+        <button data-test="sign-in-submit">Entrar</button>
       </form>
 
       <Link to='/cadastro' >

@@ -31,20 +31,23 @@ export default function SignUpPage() {
     <SingUpContainer>
       <form onSubmit={signUp}>
         <MyWalletLogo />
-        <input 
+        <input
+          data-test="name" 
           placeholder="Nome"
           required 
           onChange={e => setSignUpInputs(previous => ({...previous, ['name']: e.target.value}))}
           value={signUpInputs.name}
         />
-        <input 
+        <input
+          data-test="email" 
           placeholder="E-mail"
           type="email"
           required
           onChange={e => setSignUpInputs(previous => ({...previous, ['email']: e.target.value}))}
           value={signUpInputs.email}
         />
-        <input 
+        <input
+          data-test="password" 
           placeholder="Senha" 
           autoComplete="new-password"
           type="password"
@@ -53,7 +56,8 @@ export default function SignUpPage() {
           onChange={e => setSignUpInputs(previous => ({...previous, ['password']: e.target.value}))}
           value={signUpInputs.password}
         />
-        <input 
+        <input
+          data-test="conf-password" 
           placeholder="Confirme a senha" 
           autoComplete="new-password"
           type="password"
@@ -62,7 +66,7 @@ export default function SignUpPage() {
           onChange={e => setConfirmPassword(e.target.value)}
           value={confirmPassword}
         />
-        <button type="submit" >Cadastrar</button>
+        <button data-test="sign-up-submit">Cadastrar</button>
       </form>
 
       <Link to='/' >
