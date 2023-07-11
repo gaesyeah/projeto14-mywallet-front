@@ -52,6 +52,7 @@ const GlobalStyle = createGlobalStyle`
         border-radius: 5px;
     }
     a {
+        cursor: pointer;
         font-weight: 700;
         font-size: 15px;
         line-height: 18px;
